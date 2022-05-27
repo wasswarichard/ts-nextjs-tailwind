@@ -1,11 +1,13 @@
-import { convertToRaw, EditorState } from 'draft-js';
+import Button from '@material-ui/core/Button';
+import { Grid, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import { EditorState } from 'draft-js';
 import * as React from 'react';
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
+
+import Attachment from '@/components/Attachment/Attachment';
 import Layout from '@/components/layout/Layout';
 import TextEditor, { IFile } from '@/components/TextEditor';
-import Card from '@mui/material/Card';
-import { Button, Grid, Typography, useTheme } from '@mui/material';
-import Attachment from '@/components/Attachment/Attachment';
 
 export default function HomePage() {
   const [editorState, setEditorState] = useState(() =>
@@ -15,8 +17,8 @@ export default function HomePage() {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(attachedFiles);
-    console.log(convertToRaw(editorState.getCurrentContent()));
+    attachedFiles.forEach((file) => console.log(file.name));
+    // console.log(convertToRaw(editorState.getCurrentContent()));
   };
 
   return (
@@ -36,7 +38,7 @@ export default function HomePage() {
                   </Grid>
                   <Grid item xs={12} sm={5}>
                     <Typography component='h1' variant='h5'>
-                      Attachments
+                      files
                     </Typography>
                     <Attachment attachedFiles={attachedFiles} />
                   </Grid>

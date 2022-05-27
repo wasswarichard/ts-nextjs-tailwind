@@ -1,6 +1,3 @@
-import * as React from 'react';
-import { CSSProperties, Fragment } from 'react';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {
   alpha,
   Box,
@@ -12,7 +9,13 @@ import {
   ListItemText,
   useTheme,
 } from '@mui/material';
+import * as React from 'react';
+import { CSSProperties, Fragment } from 'react';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import fileTypeIcons from '@/components/Attachment/img/file-type-icons.png';
+
 import { formatBytes } from '@/utils/bytes';
 
 export const supportedFileIcons = [
