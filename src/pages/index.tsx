@@ -40,6 +40,7 @@ export default function HomePage() {
                   </Grid>
                 </Grid>
                 <Button
+                    style={{marginTop: '25px'}}
                   type='submit'
                   fullWidth
                   variant='contained'
