@@ -1,58 +1,14 @@
-import { ContentState, convertFromHTML, EditorState } from 'draft-js';
+import { EditorState } from 'draft-js';
 import dynamic from 'next/dynamic';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { EditorProps } from 'react-draft-wysiwyg';
 import uniqid from 'uniqid';
-
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
-const supportedFileIcons = [
-  'pdf',
-  'jpg',
-  'png',
-  'ppt',
-  'doc',
-  'zip',
-  'exe',
-  'wav',
-  'mpg',
-  'mp4',
-  'mov',
-  'html',
-  'xlsx',
-  'svg',
-  'docx',
-  'jar',
-  'json',
-  'csv',
-  'py',
-  'xml',
-  'mp3',
-  'css',
-  'js',
-  'txt',
-  'reg',
-  'psd',
-  'ink',
-  'inf',
-];
-
-const iconGroups: Record<string, string[]> = {
-  jpg: ['jpeg'],
-  zip: ['rar', '7z', 'gz', 'tar'],
-  jar: ['war', 'jad'],
-  xlsx: ['xltx'],
-  ink: ['lnk'],
-  inf: ['nfo'],
-};
-
-const fileIconAliases = Object.keys(iconGroups).reduce((accumulator, key) => {
-  iconGroups[key].forEach((alias) => (accumulator[alias] = key));
-  return accumulator;
-}, {} as Record<string, string>);
-
-supportedFileIcons.push(...Object.keys(fileIconAliases));
+import {
+  fileIconAliases,
+  supportedFileIcons,
+} from '@/components/Attachment/Attachment';
 
 export interface IFile {
   id: string;
@@ -73,12 +29,10 @@ const Editor = dynamic<EditorProps>(
 export default function TextEditor({
   editorState,
   setEditorState,
-  attachedFiles,
   setAttachedFile,
 }: {
   editorState: IEditorState;
   setEditorState: ISetEditorState;
-  attachedFiles: IFile[];
   setAttachedFile: ISetAttachedFile;
 }) {
   const attachToFiles = (file: IFile) => {
@@ -87,23 +41,6 @@ export default function TextEditor({
       return [file, ...prev];
     });
   };
-
-  useEffect(() => {
-    (() => {
-      const attachedFilesHTML =
-        attachedFiles.length > 0 &&
-        `<div>${attachedFiles.map((files) => files.name)}</div>`;
-      if (attachedFilesHTML) {
-        const blocksFromHTML = convertFromHTML(attachedFilesHTML);
-        const state = ContentState.createFromBlockArray(
-          blocksFromHTML.contentBlocks,
-          blocksFromHTML.entityMap
-        );
-        attachedFiles.length > 0 &&
-          setEditorState(EditorState.createWithContent(state));
-      }
-    })();
-  }, [attachedFiles, setEditorState]);
 
   useEffect(() => {
     const handlePaste = (event: any) => {
@@ -172,7 +109,7 @@ export default function TextEditor({
   };
 
   return (
-    <div className='flex h-96 py-20'>
+    <div className='flex h-48 py-2.5'>
       <Editor
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}

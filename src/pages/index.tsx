@@ -1,13 +1,11 @@
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import { convertToRaw, EditorState } from 'draft-js';
 import * as React from 'react';
-import { useState } from 'react';
-
+import { useState, Fragment } from 'react';
 import Layout from '@/components/layout/Layout';
 import TextEditor, { IFile } from '@/components/TextEditor';
+import Card from '@mui/material/Card';
+import { Button, Grid, Typography, useTheme } from '@mui/material';
+import Attachment from '@/components/Attachment/Attachment';
 
 export default function HomePage() {
   const [editorState, setEditorState] = useState(() =>
@@ -25,32 +23,37 @@ export default function HomePage() {
     <Layout>
       <main>
         <section className='bg-white'>
-          <Container component='main'>
-            <CssBaseline />
+          <Card>
             <div className='layout flex min-h-screen py-20'>
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sm={7}>
                     <TextEditor
                       editorState={editorState}
                       setEditorState={setEditorState}
-                      attachedFiles={attachedFiles}
                       setAttachedFile={setAttachedFile}
                     />
                   </Grid>
+                  <Grid item xs={12} sm={5}>
+                    <Typography component='h1' variant='h5'>
+                      Attachments
+                    </Typography>
+                    <Attachment attachedFiles={attachedFiles} />
+                  </Grid>
+                  <Grid item xs={4} style={{ marginTop: '50px' }}>
+                    <Button
+                      type='submit'
+                      fullWidth
+                      variant='contained'
+                      color='primary'
+                    >
+                      Submit
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Button
-                    style={{marginTop: '25px'}}
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  color='primary'
-                >
-                  Sign Up
-                </Button>
               </form>
             </div>
-          </Container>
+          </Card>
         </section>
       </main>
     </Layout>
