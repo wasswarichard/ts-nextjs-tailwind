@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 import Attachment from '@/components/Attachment';
 import Layout from '@/components/layout/Layout';
-import TextEditor, { IFile } from '@/components/TextEditor';
+import RichTextEditor, { IFile } from '@/components/RichTextEditor';
 
 export default function HomePage() {
   const [editorState, setEditorState] = useState(() =>
@@ -26,18 +26,18 @@ export default function HomePage() {
       <main>
         <section className='bg-white'>
           <Card>
-            <div className='layout flex min-h-screen py-20'>
+            <div className='layout min-h-screen py-20'>
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={7}>
                     <Grid item>
-                      <TextEditor
+                      <RichTextEditor
                         editorState={editorState}
                         setEditorState={setEditorState}
                         setAttachedFile={setAttachedFile}
                       />
                     </Grid>
-                    <Grid item xs={6} style={{ marginTop: '50px' }}>
+                    <Grid item xs={6} style={{ marginTop: '10px' }}>
                       <Button
                         type='submit'
                         fullWidth
