@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import { Grid, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -18,7 +18,7 @@ export default function HomePage() {
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     attachedFiles.forEach((file) => console.log(file.name));
-    // console.log(convertToRaw(editorState.getCurrentContent()));
+    console.log(convertToRaw(editorState.getCurrentContent()));
   };
 
   return (
