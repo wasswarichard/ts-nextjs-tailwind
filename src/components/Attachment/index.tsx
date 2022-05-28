@@ -138,7 +138,7 @@ export default function Attachment({
                               position: `absolute`,
                               top: 14,
                               left: 7,
-                              backgroundImage: `url('${fileTypeIcons}')`,
+                              backgroundImage: `url('${fileTypeIcons.src}')`,
                               backgroundSize: 816,
                               backgroundRepeat: `no-repeat`,
                               transformOrigin: `top left`,

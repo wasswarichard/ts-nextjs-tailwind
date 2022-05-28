@@ -5,7 +5,7 @@ import { EditorState } from 'draft-js';
 import * as React from 'react';
 import { useState } from 'react';
 
-import Attachment from '@/components/Attachment/Attachment';
+import Attachment from '@/components/Attachment';
 import Layout from '@/components/layout/Layout';
 import TextEditor, { IFile } from '@/components/TextEditor';
 
