@@ -30,27 +30,33 @@ export default function HomePage() {
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={7}>
-                    <TextEditor
-                      editorState={editorState}
-                      setEditorState={setEditorState}
-                      setAttachedFile={setAttachedFile}
-                    />
+                    <Grid item>
+                      <TextEditor
+                        editorState={editorState}
+                        setEditorState={setEditorState}
+                        setAttachedFile={setAttachedFile}
+                      />
+                    </Grid>
+                    <Grid item xs={6} style={{ marginTop: '50px' }}>
+                      <Button
+                        type='submit'
+                        fullWidth
+                        variant='contained'
+                        color='primary'
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
                   </Grid>
                   <Grid item xs={12} sm={5}>
                     <Typography component='h1' variant='h5'>
-                      files
+                      {attachedFiles.length === 0
+                        ? ''
+                        : attachedFiles.length === 1
+                        ? 'file'
+                        : 'files'}
                     </Typography>
                     <Attachment attachedFiles={attachedFiles} />
-                  </Grid>
-                  <Grid item xs={4} style={{ marginTop: '50px' }}>
-                    <Button
-                      type='submit'
-                      fullWidth
-                      variant='contained'
-                      color='primary'
-                    >
-                      Submit
-                    </Button>
                   </Grid>
                 </Grid>
               </form>

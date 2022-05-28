@@ -7,10 +7,7 @@ import uniqid from 'uniqid';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-import {
-  fileIconAliases,
-  supportedFileIcons,
-} from '@/components/Attachment/Attachment';
+import { fileIconAliases, supportedFileIcons } from '@/components/Attachment';
 
 export interface IFile {
   id: string;
@@ -99,8 +96,10 @@ export default function TextEditor({
     };
 
     window.addEventListener('paste', handlePaste, false);
+    window.addEventListener('drop', handlePaste, false);
     return () => {
       window.removeEventListener('paste', handlePaste);
+      window.removeEventListener('drop', handlePaste);
     };
   }, []);
 
@@ -111,11 +110,11 @@ export default function TextEditor({
   };
 
   return (
-    <div className='flex h-48 py-2.5'>
+    <div className='flex h-72 py-2.5'>
       <Editor
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}
-        placeholder='Write something!'
+        placeholder='Write/ paste/ drop something!'
       />
     </div>
   );
