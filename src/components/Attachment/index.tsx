@@ -9,8 +9,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { CSSProperties, Fragment } from 'react';
-
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import fileTypeIcons from '@/components/Attachment/img/file-type-icons.png';
 
@@ -86,16 +85,21 @@ interface IFile {
 }
 export default function Attachment({
   attachedFiles,
+  setAttachedFile,
 }: {
   attachedFiles: IFile[];
+  setAttachedFile: any;
 }) {
   const theme = useTheme();
+  const onDeleteFile = (id: string) => {
+    setAttachedFile(() => attachedFiles.filter((file) => file.id !== id));
+  };
   return (
     <>
       {attachedFiles.length > 0 && (
         <>
           <Grid container>
-            {attachedFiles.map(({ name, size }, index) => {
+            {attachedFiles.map(({ name, size, id }, index) => {
               const fileExtension = (() => {
                 const fileExtensionMatch = /\.(\w+)$/g.exec(name);
                 if (
@@ -110,7 +114,19 @@ export default function Attachment({
                 return false;
               })();
               return (
-                <Grid item xs={12} sm={4} key={index}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={3.8}
+                  key={index}
+                  style={{
+                    backgroundColor: 'lightgray',
+                    marginTop: '3px',
+                    border: '2px solid #ddd',
+                    marginLeft: '3px',
+                    borderRadius: '2px',
+                  }}
+                >
                   <Fragment>
                     <ListItem
                       sx={{
@@ -163,6 +179,11 @@ export default function Attachment({
                           minWidth: 0,
                           wordBreak: 'break-all',
                         }}
+                      />
+                      <CancelIcon
+                        color='action'
+                        cursor='pointer'
+                        onClick={() => onDeleteFile(id)}
                       />
                     </ListItem>
                   </Fragment>

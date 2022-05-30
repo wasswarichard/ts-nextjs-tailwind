@@ -212,7 +212,10 @@ export default function RichTextEditor({
         onToggle={toggleInlineStyle}
       />
       <Divider />
-      <Attachment attachedFiles={attachedFile} />
+      <Attachment
+        attachedFiles={attachedFile}
+        setAttachedFile={setAttachedFile}
+      />
       <div className={className}>
         {mounted && (
           <Editor
