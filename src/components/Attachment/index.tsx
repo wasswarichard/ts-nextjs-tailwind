@@ -1,9 +1,7 @@
 import {
   alpha,
   Box,
-  Divider,
   Grid,
-  List,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -95,8 +93,8 @@ export default function Attachment({
   return (
     <>
       {attachedFiles.length > 0 && (
-        <Grid item xs>
-          <List sx={{ width: '100%' }}>
+        <>
+          <Grid container>
             {attachedFiles.map(({ name, size }, index) => {
               const fileExtension = (() => {
                 const fileExtensionMatch = /\.(\w+)$/g.exec(name);
@@ -112,63 +110,67 @@ export default function Attachment({
                 return false;
               })();
               return (
-                <Fragment key={index}>
-                  {index === 0 ? null : <Divider />}
-                  <ListItem
-                    sx={{
-                      pl: 0,
-                      pr: 1,
-                      py: 0.5,
-                      '&:hover': {
-                        backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                      },
-                    }}
-                  >
-                    <ListItemAvatar sx={{ minWidth: 40 }}>
-                      {fileExtension && (
-                        <Box
-                          sx={{
-                            width: 30,
-                            height: 40,
-                            '&:after': {
-                              content: '""',
-                              display: `block`,
-                              width: 68,
-                              height: 90,
-                              position: `absolute`,
-                              top: 14,
-                              left: 7,
-                              backgroundImage: `url('${fileTypeIcons.src}')`,
-                              backgroundSize: 816,
-                              backgroundRepeat: `no-repeat`,
-                              transformOrigin: `top left`,
-                              transform: `scale(0.36)`,
-                              ...supportedSmallFileIconStyles[fileExtension],
-                            },
-                          }}
-                        />
-                      )}
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={name}
-                      secondary={formatBytes(size)}
-                      secondaryTypographyProps={{
-                        sx: {
-                          fontSize: 12,
+                <Grid item xs={12} sm={4} key={index}>
+                  <Fragment>
+                    <ListItem
+                      sx={{
+                        pl: 0,
+                        pr: 1,
+                        py: 0.5,
+                        '&:hover': {
+                          backgroundColor: alpha(
+                            theme.palette.primary.main,
+                            0.1
+                          ),
                         },
                       }}
-                      sx={{
-                        flex: 1,
-                        minWidth: 0,
-                        wordBreak: 'break-all',
-                      }}
-                    />
-                  </ListItem>
-                </Fragment>
+                    >
+                      <ListItemAvatar sx={{ minWidth: 40 }}>
+                        {fileExtension && (
+                          <Box
+                            sx={{
+                              width: 30,
+                              height: 40,
+                              '&:after': {
+                                content: '""',
+                                display: `block`,
+                                width: 68,
+                                height: 90,
+                                position: `absolute`,
+                                top: 14,
+                                left: 7,
+                                backgroundImage: `url('${fileTypeIcons.src}')`,
+                                backgroundSize: 816,
+                                backgroundRepeat: `no-repeat`,
+                                transformOrigin: `top left`,
+                                transform: `scale(0.36)`,
+                                ...supportedSmallFileIconStyles[fileExtension],
+                              },
+                            }}
+                          />
+                        )}
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={name}
+                        secondary={formatBytes(size)}
+                        secondaryTypographyProps={{
+                          sx: {
+                            fontSize: 12,
+                          },
+                        }}
+                        sx={{
+                          flex: 1,
+                          minWidth: 0,
+                          wordBreak: 'break-all',
+                        }}
+                      />
+                    </ListItem>
+                  </Fragment>
+                </Grid>
               );
             })}
-          </List>
-        </Grid>
+          </Grid>
+        </>
       )}
     </>
   );

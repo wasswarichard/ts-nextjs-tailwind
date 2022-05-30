@@ -1,11 +1,10 @@
 import Button from '@material-ui/core/Button';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import Card from '@mui/material/Card';
-import { EditorState, convertToRaw } from 'draft-js';
+import { convertToRaw, EditorState } from 'draft-js';
 import * as React from 'react';
 import { useState } from 'react';
 
-import Attachment from '@/components/Attachment';
 import Layout from '@/components/layout/Layout';
 import RichTextEditor, { IFile } from '@/components/RichTextEditor';
 
@@ -29,12 +28,13 @@ export default function HomePage() {
             <div className='layout min-h-screen py-20'>
               <form noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={7}>
+                  <Grid item xs={12}>
                     <Grid item>
                       <RichTextEditor
                         editorState={editorState}
                         setEditorState={setEditorState}
                         setAttachedFile={setAttachedFile}
+                        attachedFile={attachedFiles}
                       />
                     </Grid>
                     <Grid item xs={6} style={{ marginTop: '10px' }}>
@@ -47,16 +47,6 @@ export default function HomePage() {
                         Submit
                       </Button>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={12} sm={5}>
-                    <Typography component='h1' variant='h5'>
-                      {attachedFiles.length === 0
-                        ? ''
-                        : attachedFiles.length === 1
-                        ? 'file'
-                        : 'files'}
-                    </Typography>
-                    <Attachment attachedFiles={attachedFiles} />
                   </Grid>
                 </Grid>
               </form>

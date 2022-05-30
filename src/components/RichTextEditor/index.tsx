@@ -1,11 +1,18 @@
+import { Divider } from '@mui/material';
 import { Editor, EditorState, RichUtils } from 'draft-js';
-import { useEffect, useState, useRef } from 'react';
-import uniqid from 'uniqid';
-import { fileIconAliases, supportedFileIcons } from '@/components/Attachment';
+import { useEffect, useRef, useState } from 'react';
 import * as React from 'react';
-import styles from './RichTextEditor.module.css';
+import uniqid from 'uniqid';
+
 import 'draft-js/dist/Draft.css';
-import { BLOCK_TYPES, styleMap, INLINE_STYLES } from '@/utils/bytes';
+import styles from './RichTextEditor.module.css';
+
+import Attachment, {
+  fileIconAliases,
+  supportedFileIcons,
+} from '@/components/Attachment';
+
+import { BLOCK_TYPES, INLINE_STYLES, styleMap } from '@/utils/bytes';
 
 export interface IFile {
   id: string;
@@ -86,10 +93,12 @@ export default function RichTextEditor({
   editorState,
   setEditorState,
   setAttachedFile,
+  attachedFile,
 }: {
   editorState: any;
   setEditorState: any;
   setAttachedFile: any;
+  attachedFile: IFile[];
 }) {
   const editor = useRef(null);
 
@@ -202,6 +211,8 @@ export default function RichTextEditor({
         editorState={editorState}
         onToggle={toggleInlineStyle}
       />
+      <Divider />
+      <Attachment attachedFiles={attachedFile} />
       <div className={className}>
         {mounted && (
           <Editor
