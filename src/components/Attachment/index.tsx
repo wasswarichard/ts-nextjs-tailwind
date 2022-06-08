@@ -1,3 +1,4 @@
+import CancelIcon from '@mui/icons-material/Cancel';
 import {
   alpha,
   Box,
@@ -9,7 +10,6 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { CSSProperties, Fragment } from 'react';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 import fileTypeIcons from '@/components/Attachment/img/file-type-icons.png';
 
@@ -125,6 +125,7 @@ export default function Attachment({
                     border: '2px solid #ddd',
                     marginLeft: '3px',
                     borderRadius: '2px',
+                    boxShadow: '1px 2px #888888',
                   }}
                 >
                   <Fragment>
@@ -168,6 +169,11 @@ export default function Attachment({
                       </ListItemAvatar>
                       <ListItemText
                         primary={name}
+                        primaryTypographyProps={{
+                          sx: {
+                            fontSize: 13,
+                          },
+                        }}
                         secondary={formatBytes(size)}
                         secondaryTypographyProps={{
                           sx: {

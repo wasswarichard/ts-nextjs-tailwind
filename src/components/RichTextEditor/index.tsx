@@ -1,5 +1,12 @@
 import { Divider } from '@mui/material';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import {
+  ContentBlock,
+  DraftEditorCommand,
+  Editor,
+  EditorState,
+  getDefaultKeyBinding,
+  RichUtils,
+} from 'draft-js';
 import { useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 import uniqid from 'uniqid';
@@ -42,6 +49,15 @@ const StyleButton = ({
       {label}
     </span>
   );
+};
+
+const getBlockStyle = (block: ContentBlock) => {
+  switch (block.getType()) {
+    case 'blockquote':
+      return styles['RichEditor-blockquote'];
+    default:
+      return '';
+  }
 };
 
 const BlockStyleControls = (props: { onToggle?: any; editorState?: any }) => {
@@ -193,6 +209,28 @@ export default function RichTextEditor({
     onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
 
+
+
+  const handleKeyCommand = (command: DraftEditorCommand) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
+
+  const mapKeyToEditorCommand = (e: React.KeyboardEvent<{}>) => {
+    if (e.keyCode === 9) {
+      const newEditorState = RichUtils.onTab(e, editorState, 4);
+      if (newEditorState !== editorState) {
+        onChange(newEditorState);
+      }
+      return null;
+    }
+    return getDefaultKeyBinding(e);
+  };
+
   let className = styles['RichEditor-editor'];
   const contentState = editorState.getCurrentContent();
   if (!contentState.hasText()) {
@@ -216,10 +254,13 @@ export default function RichTextEditor({
         attachedFiles={attachedFile}
         setAttachedFile={setAttachedFile}
       />
-      <div className={className}>
+      <div className={className} >
         {mounted && (
           <Editor
+            blockStyleFn={getBlockStyle}
             customStyleMap={styleMap}
+            handleKeyCommand={handleKeyCommand}
+            keyBindingFn={mapKeyToEditorCommand}
             editorState={editorState}
             ref={editor}
             onChange={onEditorStateChange}

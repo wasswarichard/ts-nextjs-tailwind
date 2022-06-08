@@ -37,7 +37,7 @@ export default function HomePage() {
                         attachedFile={attachedFiles}
                       />
                     </Grid>
-                    <Grid item xs={6} style={{ marginTop: '10px' }}>
+                    <Grid item xs={6} style={{ margin: '10px auto' }}>
                       <Button
                         type='submit'
                         fullWidth
